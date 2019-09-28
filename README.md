@@ -39,7 +39,20 @@ For testing I was using BenchmarkDotNet nuget. I did just light testing due to l
 
 I was testing it on .NET Framework 4.7.2 (CLR and Mono), .NET Core 2.2 and .NET Core 3.0 (CoreCLR and CoreRT).  
 
-When testing current version it is almost everytime faster than NET Linq. Just Mono is slow (maybe because of reflection) and CoreRT could not be run (i will try to get it running). But large performance boost is detected both in CLR and CoreCLR.  
+When testing current version it is almost everytime faster than NET Linq. Just Mono is slow (maybe because of reflection) and CoreRT could not be run (i will try to get it running). But large performance boost is detected both in CLR and CoreCLR.
+
+The tested code (For list was static List source):
+```cs
+public static int[] Source = Enumerable.Range(0, 1000).ToArray();
+
+[Benchmark]
+public void Test()
+{
+  var result = Source
+          .Select(x => x + 2)
+          .ToArray();
+}
+```
 
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
 Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical cores
