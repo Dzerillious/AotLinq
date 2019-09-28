@@ -7,29 +7,20 @@ using BenchmarkDotNet.Running;
 
 namespace Benchmarks
 {
-    public static partial class CompiledLinqClass
-    {
-        public static int[] CompiledLinqMethod(int[] source)
-        {
-            return Program.ArraySource
-                .GetCompiledLinq(typeof(CompiledLinqClass))
-                .Select(x => x + 2)
-                .ToArray();
-        }
-    }
-    
     [ClrJob/*ClrJob, CoreJob, MonoJob, CoreRtJob*/]
     public partial class Program
     {
         public static readonly List<int> ListSource = Enumerable.Range(0, 1000).ToList();
         public static readonly int[] ArraySource = Enumerable.Range(0, 1000).ToArray();
-        public static Program ProgramInstance = new Program();
         public const int GreaterThan = 1000;
 
         [Benchmark]
         public void CompiledLinq()
         {
-            var result = CompiledLinqClass.CompiledLinqMethod(Program.ArraySource);
+            var result = Program.ArraySource
+                .GetCompiledLinq(this)
+                .Select(x => x + 2)
+                .ToArray();
         }
 //        
         [Benchmark]
@@ -67,7 +58,6 @@ namespace Benchmarks
 
         static void Main(string[] args)
         {
-            new Program().Net3ArrayLinq();
             BenchmarkSwitcher.FromTypes(new[] {typeof(Program)}).Run(args);
         }
     }
