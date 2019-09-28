@@ -4,11 +4,11 @@ Linq is great feature. But still it is not often used because of performance. Wh
 
 Ahead of time (AOT) compilation of Linq. In .NET Core is Linq faster than in .NET Framework. But still it does not support method inlining, because parameter is cast into delegate and for each element and for each linq operation callvirt instruction must be called. And it slows Linq. When performing simple linq method, like .Select(x => x + 2) the performance difference is big, because it is big difference between.
 
-var next = previous + 2;  and \n
-var next = callvirt (input = previous) {( return input + 2; )}
+var next = previous + 2;  and  
+var next = callvirt (input = previous) {( return input + 2; )}  
 
 For clear showing what is done in each method we will use new syntax for method calling.
-call/virtcall/reflectcall (x = 2, y = 3)        ({  return x + y;  }) \n
+call/virtcall/reflectcall (x = 2, y = 3)        ({  return x + y;  })  
 Type of call              Parameters assignment Method body  
 
 ## Inlining methods comparement
