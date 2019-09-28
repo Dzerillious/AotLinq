@@ -7,13 +7,13 @@ Ahead of time (AOT) compilation of Linq. In .NET Core is Linq faster than in .NE
 var next = previous + 2;  and  
 var next = callvirt (input = previous) {( return input + 2; )}  
 
-For clear showing what is done in each method we will use new syntax for method calling.
+For clear showing what is done in each method we will use new syntax for method calling.  
 call/virtcall/reflectcall (x = 2, y = 3)        ({  return x + y;  })  
 Type of call              Parameters assignment Method body  
 
 ## Inlining methods comparement
 
-To inline methods you have two options. You must compile lambda expressions and then invoke them or AOT compile linq. 
+To inline methods you have two options. You must compile lambda expressions and then invoke them or AOT compile linq.  
 
 Advantages and disadvantages of Lambda expressions are:
   + Compiled almost as fast as for cycle
@@ -37,9 +37,9 @@ When compared to aot compilation:
 
 For testing I was using BenchmarkDotNet nuget. I did just light testing due to lack of time (it will be extended testing if I could write bachelor thesis about this theme) I tested CompiledLinq (AOT compiling), ForLinq (Linq written like for cycle), Linq over array, Linq over list and Linq over my own collection FastList.
 
-I was testing it on .NET Framework 4.7.2 (CLR and Mono), .NET Core 2.2 and .NET Core 3.0 (CoreCLR and CoreRT). 
+I was testing it on .NET Framework 4.7.2 (CLR and Mono), .NET Core 2.2 and .NET Core 3.0 (CoreCLR and CoreRT).  
 
-When testing current version it is almost everytime faster than NET Linq. Just Mono is slow (maybe because of reflection) and CoreRT could not be run (i will try to get it running). But large performance boost is detected both in CLR and CoreCLR.
+When testing current version it is almost everytime faster than NET Linq. Just Mono is slow (maybe because of reflection) and CoreRT could not be run (i will try to get it running). But large performance boost is detected both in CLR and CoreCLR.  
 
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
 Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical cores
