@@ -100,6 +100,7 @@ Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical c
   Mono   : Mono 6.4.0 (Visual Studio), 64bit
 
 Job=Mono  Runtime=Mono
+
 |        Method |     Mean |     Error |    StdDev |  Gen 0 | Gen 1 | Gen 2 | Allocated |
 |-------------- |---------:|----------:|----------:|-------:|------:|------:|----------:|
 |  CompiledLinq | 3.462 us | 0.0181 us | 0.0160 us | 1.0452 |     - |     - |         - |
