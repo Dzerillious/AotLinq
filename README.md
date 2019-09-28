@@ -1,5 +1,17 @@
 # AOTLinq
-Ahead of time (AOT) compilation of Linq. In .NET Core 3.0 was Linq optimized. But still it does not support method inlining, because it is cast into delegate and for each element and for each linq operation callvirt instruction must be called. And for low cost operations it slows down a lot calculation of select.
+
+Linq is great feature. But still it is not often used because of performance. When performance is critical, Linq is not used and it often should, because it has better readibility, it is simpler and faster to develop. So our target should be create Linq, which is as fast as normal array.
+
+Ahead of time (AOT) compilation of Linq. In .NET Core is Linq faster than in .NET Framework. But still it does not support method inlining, because parameter is cast into delegate and for each element and for each linq operation callvirt instruction must be called. And it slows Linq. When performing simple linq method, like .Select(x => x + 2) the performance difference is big, because it is big difference between.
+
+var next = previous + 2;  and
+var next = callvirt (input = previous) {( return input + 2; )}
+
+For clear showing what is done in each method we will use new syntax for method calling.
+call/virtcall/reflectcall (x = 2, y = 3)        ({  return x + y;  })
+Type of call              Parameters assignment Method body  
+
+## Inlining methods comparement
 
 To inline methods you have two options. You must compile lambda expressions and then invoke them or AOT compile linq. 
 
@@ -20,7 +32,13 @@ When compared to aot compilation:
   - Harder to code
   - Slowing compilation
   - Not that transparent and must provide own build errors
-  
+
+## Benchmarking of Linq types
+
+For testing I was using BenchmarkDotNet nuget. I did just light testing due to lack of time (it will be extended testing if I could write bachelor thesis about this theme) I tested CompiledLinq (AOT compiling), ForLinq (Linq written like for cycle), Linq over array, Linq over list and Linq over my own collection FastList.
+
+I was testing it on .NET Framework 4.7.2 (CLR and Mono), .NET Core 2.2 and .NET Core 3.0 (CoreCLR and CoreRT). 
+
 When testing current version it is almost everytime faster than NET Linq. Just Mono is slow (maybe because of reflection) and CoreRT could not be run (i will try to get it running). But large performance boost is detected both in CLR and CoreCLR.
 
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
@@ -37,7 +55,7 @@ Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical c
 |  FastListLinq | 1,665.3 ns |  3.668 ns |  3.252 ns | 0.9956 |     - |     - |   4.08 KB |
 
 
-================================================================================================
+---
 
 
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
@@ -55,7 +73,7 @@ Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical c
 |  FastListLinq | 1,670.7 ns |  5.771 ns |  5.116 ns | 0.9918 |     - |     - |   4.07 KB |
 
 
-================================================================================================
+---
 
 
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
@@ -73,7 +91,7 @@ Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical c
 |  FastListLinq | 1,983.6 ns | 39.347 ns | 68.912 ns | 0.9956 |     - |     - |   4.07 KB |
 
 
-================================================================================================
+---
 
 
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
@@ -90,6 +108,10 @@ Job=Mono  Runtime=Mono
 |   NetListLinq | 5.139 us | 0.0599 us | 0.0560 us | 1.0300 |     - |     - |         - |
 |  FastListLinq | 2.661 us | 0.0304 us | 0.0284 us | 1.0262 |     - |     - |         - |	
 
+
+---
+
+
 BenchmarkDotNet=v0.11.5, OS=Windows 10.0.18362
 Intel Core i7-8705G CPU 3.10GHz (Kaby Lake G), 1 CPU, 8 logical and 4 physical cores
 .NET Core SDK=3.0.100
@@ -105,4 +127,10 @@ Job=CoreRT  Runtime=CoreRT
 |  NetArrayLinq | 8,959.3 ns | 43.556 ns | 40.743 ns |
 |   NetListLinq | 8,953.1 ns | 59.659 ns | 55.805 ns |
 
-For clear showing what is done in each method we will define new syntax for method calling.
+
+## Conclusion
+
+I think, this theme is interesting and it would be good to do more research and then integration to Nuget. It could improve performance of operations over collections and in performance critical code it could allow use of Linq. Yes, there is still some overhead than in classic For cycle, but I hope that it could be reduced.
+
+Thank you for reading,
+Danie, Šerý
