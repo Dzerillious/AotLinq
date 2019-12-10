@@ -1,10 +1,15 @@
 .NET Core 3.0 Enumerator implementation (without initialization)
 Decorated object on ToArray() executed
 
++ quite good performance
++ simple usage
+- not inlining expressions
+- only for .NET Core 3.0
+
 ```cs
 var result = Array.Select(x => x + 2)
 			  .Select(x => x * x)
-			  .ToArray;
+			  .ToArray();
 ```
 
 =>
