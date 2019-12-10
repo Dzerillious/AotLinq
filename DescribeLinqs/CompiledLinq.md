@@ -9,6 +9,7 @@ var result = Array.GetCompiledLinq(this)
 ```																																																																																																																																																																																																		
 =>
 
+```
 var result = reflectcall (sourceArray = Array)
 ({
 	var i = -1;		
@@ -23,3 +24,4 @@ var result = reflectcall (sourceArray = Array)
 	}
 	return resultArray;
 })
+```				
