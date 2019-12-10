@@ -1,6 +1,12 @@
 Event based Linq which would be used for FastLinq in not optimized routes (where would be used decorator and for ForLinq)
 Delegate assigned to parent next action is invoked from bottom to top
 
++ quite good performance
++ easily extended
++ can optimize routes
+
+performance similar to .NET Core 3.0 Linq
+
 ```cs
 var result = Array.Select(x => x + 2)
 			  .Select(x => x * x)
