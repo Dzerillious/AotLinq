@@ -1,6 +1,10 @@
 .NET Framework 4.6.2 Enumerator implementation (Default enumerator is more complex, without initialization)
 Goes from top to bottom and back, asks if has next item and then gets item
 
++ simple implementation
++ easily extended
+- bad performance
+
 ```cs
 var result = Array.Select(x => x + 2)
 			  .Select(x => x * x)
