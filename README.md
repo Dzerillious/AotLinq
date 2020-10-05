@@ -1,5 +1,7 @@
 # AOTLinq
 
+Just tested, not implemented.
+
 Linq is great feature. But still it is not often used because of performance. When performance is critical, Linq is not used and it often should, because it has better readibility, it is simpler and faster to develop. So our target should be create Linq, which is as fast as normal array.
 
 Ahead of time (AOT) compilation of Linq. In .NET Core is Linq faster than in .NET Framework. But still it does not support method inlining, because parameter is cast into delegate and for each element and for each linq operation callvirt instruction must be called. And it slows Linq. When performing simple linq method, like .Select(x => x + 2) the performance difference is big, because it is big difference between.
